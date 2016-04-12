@@ -1,0 +1,39 @@
+<html>
+<head>
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+<script
+	src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+	
+<style type="text/css">
+</style>
+</head>
+<body>
+	Title
+	<input type='text' id='tittle'>
+	<br> Chat
+	<textarea id='chat'></textarea>
+	<script>
+      var myDataRef = new Firebase('https://dazzling-inferno-9362.firebaseio.com/');
+      $('#chat').keypress(function (e) {
+        if (e.keyCode == 13) {
+          var tittle = $('#tittle').val();
+          var chat = $('#chat').val();
+          myDataRef.push({tittle: tittle, chat: chat});
+          $('#tittle').val('');
+          $('#chat').val('');
+        }
+      });
+      myDataRef.on('child_added', function(snapshot) {
+    	  var message = snapshot.val();
+    	  var chat  = message.chat.replace(/(?:\r\n|\r|\n)/g, '<br />');
+    	  var chat = chat.replace(/([[0-9]*[\/][0-9]*[\/][0-9]*\s[0-9]*:[0-9]*\sPM]\s[a-zA-Z]*,\s[a-zA-Z]*:)/gi, function myFunction(x){return '<b>'+x+'</b>';});
+    	  displayChatMessage(message.tittle, chat);
+    	});
+      function displayChatMessage(name, text) {
+          $('<div />').html(text).prepend($('<h2/>').html(name+': <br />')).appendTo($('#messagesDiv'));
+          $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+        };
+    </script>
+	<div id='messagesDiv'></div>
+</body>
+</html>
