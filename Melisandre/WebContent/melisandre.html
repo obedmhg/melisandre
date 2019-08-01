@@ -1,39 +1,30 @@
 <!doctype html>
 <html ng-app>
   <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js"></script>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="elisa.js"></script>
+    
+
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://code.responsivevoice.org/responsivevoice.js?key=zP5CvZnH"></script>
+
+<script>if (window.module) module = window.module;</script>
+
     <link href="./style.css" rel="stylesheet" type="text/css" />
         <title>Melisandre</title>
   </head>
-    <body background="bg.png">
+    <body background="https://images.pexels.com/photos/1374891/pexels-photo-1374891.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
    
   <a href="https://github.com/obedmhg/melisandre"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
    
-<!-- AddThis Smart Layers BEGIN -->
-<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5297fb7d36849701"></script>
-<script type="text/javascript">
-  addthis.layers({
-    'theme' : 'transparent',
-    'share' : {
-      'position' : 'left',
-      'numPreferredServices' : 2
-    }   
-  });
-</script>
-<!-- AddThis Smart Layers END -->
-  
-  
       <div align="center">
-      <img id="mainImage" /><br>
+      <img id="mainImage" height="300"/><br>
       <textarea rows="1" cols="100" placeholder="Que quieres Saber?" id="q"></textarea><br>
       <input id="responde" type="submit" value="Responde Melisandre" class="button black"></input>
       <div id="r" style="display: none;"></div>
        
       </div>
       <script>
+      responsiveVoice.setDefaultVoice("Spanish Latin American Female");
       var isAsking = false;
       var response = "";
       var counter = 1;
@@ -75,7 +66,8 @@
              
              
             if ($("#q").val() == partOfMQ) {
-                alert( elisaAns[getRandomIndex()] );
+                //alert( elisaAns[getRandomIndex()] );
+                responsiveVoice.speak(elisaAns[getRandomIndex()]);
             }
         });
          
@@ -83,10 +75,12 @@
         $( "#responde" ).click(function() {
                
               if($("#r").html().trim().length != 0) {
-                  alert( $("#r").html() );  
+//                  alert( $("#r").html() );
+                  responsiveVoice.speak($("#r").html());
+  
               } else {
-                  alert( elisaNonAns[getRandomIndex()] );                 
-               
+  //                alert( elisaNonAns[getRandomIndex()] );
+                  responsiveVoice.speak(elisaAns[getRandomIndex()]);
               }
               resetValues();
                
